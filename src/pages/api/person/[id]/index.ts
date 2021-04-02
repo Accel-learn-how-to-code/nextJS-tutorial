@@ -25,14 +25,8 @@ export default async function getPersonById(
       "UPDATE Person SET name=?, email=? where id=?"
     );
     await statement.bind(req.body.name, req.body.email, req.query.id);
-    let result = await statement.get();
-
-    // const result = await db.run(
-    //   "UPDATE Person SET name=?, email=? where id=?",
-    //   req.body.name,
-    //   req.body.email,
-    //   req.query.id
-    // );
+    //let result = await statement.get();
+    let result = await statement.run();
   }
 
   const person = await db.get("SELECT * FROM Person where id = ?", [
