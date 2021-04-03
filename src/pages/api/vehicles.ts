@@ -11,7 +11,7 @@ export default async function getAllVehicles(
     driver: sqlite3.Database,
   });
 
-  const vehicles = await db.get("SELECT * FROM Vehicle");
+  const vehicles = await db.all("SELECT * FROM Vehicle");
 
   res.json(vehicles);
 
