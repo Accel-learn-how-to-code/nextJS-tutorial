@@ -20,16 +20,6 @@ export default function List({ ownersList }: ListProps) {
     </div>
   );
 }
-// export async function getStaticPaths() {
-//   const response = await fetch("http://localhost:4001/vehicles");
-//   const ownersList: VehiclePerson[] | undefined = await response.json();
-
-//   const paths = ownersList?.map((item) => ({
-//     params: { vehicle: item.vehicle, person: item.ownerName },
-//   }))
-
-//   return { paths, fallback: false }
-// }
 
 export async function getStaticProps() {
   const response = await fetch("http://localhost:4001/vehicles");
