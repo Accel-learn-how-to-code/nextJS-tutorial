@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
-import { compare, hash } from "bcrypt";
+import { compare } from "bcrypt";
+import { sign } from "jsonwebtoken";
+import { secret } from "../../../api/secret";
 
 export default async function getAllPeople(
   req: NextApiRequest,
@@ -19,7 +21,9 @@ export default async function getAllPeople(
     compare(req.body.password, person.password, async function (err, result) {
       // result == true
       if (!err && result) {
-        res.json("Name: " + person.name + ". Email: " + person.email);
+        const claim = { name: person.name, email: person.email, isValid: true };
+        const token = sign(claim, secret, { expiresIn: '1h' });
+        res.json({ authToken: token });
       } else {
         res.json("Something wrong " + err);
       }
