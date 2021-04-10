@@ -11,6 +11,6 @@ export default async function getAllPeople(
     driver: sqlite3.Database,
   });
 
-  const people = await db.get("SELECT * FROM Person");
+  const people = await db.all("SELECT * FROM Person");
   res.json(people);
 }
