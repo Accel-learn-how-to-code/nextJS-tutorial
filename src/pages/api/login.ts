@@ -4,6 +4,7 @@ import { open } from "sqlite";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { secret } from "../../../api/secret";
+import cookie from "cookie";
 
 export default async function getAllPeople(
   req: NextApiRequest,
@@ -22,8 +23,20 @@ export default async function getAllPeople(
       // result == true
       if (!err && result) {
         const claim = { name: person.name, email: person.email, isValid: true };
-        const token = sign(claim, secret, { expiresIn: '1h' });
-        res.json({ authToken: token });
+        const token = sign(claim, secret, { expiresIn: "1h" });
+
+        res.setHeader(
+          "Set-Cookie",
+          cookie.serialize("auth", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "strict",
+            maxAge: 3600,
+            path: "/",
+          })
+        );
+
+        res.json({ message: "Welcome back" });
       } else {
         res.json("Something wrong " + err);
       }

@@ -10,6 +10,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "bcrypt": "^5.0.1",
+    "cookie": "^0.4.1",
     "jsonwebtoken": "^8.5.1",
     "next": "10.0.9",
     "react": "17.0.2",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.1",
+    "@types/cookie": "^0.4.0",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/node": "^14.14.37",
     "@types/react": "^17.0.3",
